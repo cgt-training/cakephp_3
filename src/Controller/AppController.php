@@ -43,21 +43,84 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->viewBuilder()->layout('frontend');
-        $this->loadComponent('Auth', [
-            'loginRedirect' => [
-                'controller' => 'Forms',
-                'action' => 'index'
-            ],
-            'logoutRedirect' => [
-                'controller' => 'Forms',
-                'action' => 'index'
+        $this->loadComponent('Cookie', 
+            ['expires' => '1 min',
+            'httpOnly' => true
             ]
-        ]);
+        );
+       
+        // $this->loadComponent('Auth', [
+        //     'loginRedirect' => [
+        //         'controller' => 'Forms',
+        //         'action' => 'index'
+        //     ],
+        //     'logoutRedirect' => [
+        //         'controller' => 'Forms',
+        //         'action' => 'index'
+        //     ]
+        // ]);
+        if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
+      
+            $this->loadComponent('Auth', [  
+
+                'loginRedirect' => [
+                'controller' => 'Dashboards',
+                'action' => 'display',
+                'prefix' => 'admin',
+                // 'prefix' => false,
+                ],
+
+                'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login',
+                'prefix' => false,
+                    
+                ],
+
+                'authenticate' => [
+                    'Form' => [
+                        'fields' => ['username' => 'username', 'password' => 'password']
+                    ]
+
+                ],
+                'storage' => [
+                    'className' => 'Session',
+                    'key' => 'Auth.Admin',              
+                ],
+                
+                // 'authorize' => 'Controller',
+            ]);
+        }
+        else {
+            $this->viewBuilder()->layout('frontend');
+            $this->loadComponent('Auth', [
+                'loginRedirect' => [
+                    'controller' => 'Forms',
+                    'action' => 'index'
+                ],
+                'logoutRedirect' => [
+                    'controller' => 'Forms',
+                    'action' => 'index'
+                ],
+                'authenticate' => [
+                    'Form' => [
+                        'fields' => ['username' => 'username', 'password' => 'password']
+                    ]
+
+                ],
+                'storage' => [
+                     'className' => 'Session',
+                     'key' => 'Auth.User',              
+                 ],
+                
+            ]);
+
+        }
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
          */
+         // $this->viewBuilder()->layout('frontend');
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
     }
@@ -78,6 +141,6 @@ class AppController extends Controller
     }
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index']);
+        $this->Auth->allow(['index','login']);
     }
 }
