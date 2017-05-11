@@ -6,7 +6,6 @@
     echo $this->Html->css('cake');
     echo $this->Html->css('base');
     echo $this->Html->css('home');
-   
 ?>
-<title>Busca</title>
-
+<title>Admin Login Page</title>
+        

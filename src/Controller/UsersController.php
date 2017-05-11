@@ -41,19 +41,55 @@ class UsersController extends AppController
    
     public function login()
     {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            // print_r($user);
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+        if (!empty($this->request->data) && $this->request->data['remember_me']) {
+         // print_r($this->request->getData());exit();
+           
+            if ($this->request->is('POST')) {
+
+                $user = $this->Auth->identify();
+                
+                $cookieId= $user['id'];
+
+                $cookieName= $user['username'];
+
+                $cookiePass= $user['password'];
+                 // print_r($cookiePass);exit;
+                $this->Cookie->configKey('UserFront', [
+
+                    'expires' => '+1 days',
+                    'httpOnly' => true
+
+                ]);
+
+                $this->Cookie->write('UserFront',
+                    ['id'=>$cookieId, 'name' => $cookieName, 'pass' => $cookiePass]
+                );
+                if ($user) {
+                        $this->Auth->setUser($user);
+                        return $this->redirect($this->Auth->redirectUrl());
+                    }
+                $this->Flash->error(__('Invalid username or password, try again'));
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
-        }
+
+        }else if(!empty($this->request->data) && $this->request->data['remember_me'] == 0) {
+
+               if ($this->request->is('post')) {
+
+                    $user = $this->Auth->identify();
+                    if ($user) {
+                        $this->Auth->setUser($user);
+                        return $this->redirect($this->Auth->redirectUrl());
+                    }
+                    $this->Flash->error(__('Invalid username or password, try again'));
+                } 
+        } 
     }
 
     public function logout()
     {
+
+        $this->Cookie->delete('UserFront');
+        $this->request->Session()->delete('Auth');
         return $this->redirect($this->Auth->logout());
     }
 }

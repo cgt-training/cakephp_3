@@ -3,3 +3,4 @@
     echo $this->Html->script('bootstrap.min.js');
     echo $this->Html->script('mycustomjs');
 ?>
+ 

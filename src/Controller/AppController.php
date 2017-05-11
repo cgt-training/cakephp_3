@@ -43,29 +43,15 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Cookie', 
-            ['expires' => '1 min',
-            'httpOnly' => true
-            ]
-        );
-       
-        // $this->loadComponent('Auth', [
-        //     'loginRedirect' => [
-        //         'controller' => 'Forms',
-        //         'action' => 'index'
-        //     ],
-        //     'logoutRedirect' => [
-        //         'controller' => 'Forms',
-        //         'action' => 'index'
-        //     ]
-        // ]);
+        $this->loadComponent('Cookie');
+
         if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
-      
+            $this->loadComponent('Cookie');
             $this->loadComponent('Auth', [  
 
                 'loginRedirect' => [
                 'controller' => 'Dashboards',
-                'action' => 'display',
+                'action' => 'index',
                 'prefix' => 'admin',
                 // 'prefix' => false,
                 ],
@@ -73,7 +59,7 @@ class AppController extends Controller
                 'logoutRedirect' => [
                 'controller' => 'Users',
                 'action' => 'login',
-                'prefix' => false,
+                'prefix' => 'admin',
                     
                 ],
 
@@ -83,10 +69,10 @@ class AppController extends Controller
                     ]
 
                 ],
-                'storage' => [
-                    'className' => 'Session',
-                    'key' => 'Auth.Admin',              
-                ],
+                // 'storage' => [
+                //     'className' => 'Session',
+                //     'key' => 'Auth.Admin',              
+                // ],
                 
                 // 'authorize' => 'Controller',
             ]);
@@ -108,10 +94,10 @@ class AppController extends Controller
                     ]
 
                 ],
-                'storage' => [
-                     'className' => 'Session',
-                     'key' => 'Auth.User',              
-                 ],
+                // 'storage' => [
+                //      'className' => 'Session',
+                //      'key' => 'Auth.User',              
+                //  ],
                 
             ]);
 
@@ -120,7 +106,7 @@ class AppController extends Controller
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
          */
-         // $this->viewBuilder()->layout('frontend');
+        $this->checkCookie();
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
     }
@@ -139,8 +125,90 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index','login']);
+        if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
+
+            $this->Auth->allow(['login']);
+        }else{
+
+            $this->Auth->allow(['index','login']);
+        }
+    }
+
+    function checkCookie(){
+
+        $session = $this->request->session()->read("Auth");
+
+        
+        $this->loadModel('Users');
+        if(empty($session))
+        {     //print_r("expression");exit;
+            if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
+                // $sessionadmin = $this->request->session()->read("Auth.Admin");
+                // if(empty($sessionadmin ))
+                // {    
+                    $cookieId = $this->Cookie->read('UserBack.id');
+                    
+                    $cookieUser = $this->Cookie->read('UserBack.name');
+
+                    $cookiePass = $this->Cookie->read('UserBack.pass');
+                    // print_r($cookiePass);exit;
+                    $cookie = ['username' => $cookieUser, 'password'=> $cookiePass]; 
+                    //print_r($cookieId);exit;
+                    if (!is_null($cookie)) 
+                    {
+                        
+                        $user1 = $this->Users->findByUsername($cookie['username'])->toArray();
+                        // print_r($user1);exit;
+                        if (!empty($user1[0])) 
+                        {
+                            // print_r($user1[0]);exit();
+                            $this->Auth->setUser($user1[0]);
+                            $this->redirect($this->Auth->redirectUrl());
+                        }
+                        else 
+                        { 
+                            $this->Cookie->delete('UserBack');
+                        }
+                    }else {
+
+                             $this->redirect($this->Auth->redirectUrl());
+                    }
+                // }
+            }
+            else{
+                $cookieId = $this->Cookie->read('UserFront.id');
+                // print_r($cookieId);exit;
+                $cookieUser = $this->Cookie->read('UserFront.name');
+
+                $cookiePass = $this->Cookie->read('UserFront.pass');
+
+                $cookie = ['username' => $cookieUser, 'password'=> $cookiePass]; 
+                // print_r($cookie);exit;
+                if (!is_null($cookie)) 
+                {
+                    
+                    $user1 = $this->Users->findByUsername($cookie['username'])->toArray();
+                     // print_r($user1[0]);exit;
+                    if (!empty($user1[0])) 
+                    {
+                        $this->Auth->setUser($user1[0]);
+                        $this->redirect($this->Auth->redirectUrl());
+                    }
+                    else 
+                    { 
+                        $this->Cookie->delete('UserFront');
+                    }
+                }else {
+
+                         $this->redirect($this->Auth->redirectUrl());
+                }
+            }
+                
+            
+        }
+        
     }
 }

@@ -11,6 +11,7 @@
                               <?= $this->Form->create() ?>
                                     <?php echo $this->Form->input('username',['type'=>'text','class'=>'logininput','placeholder'=>'Enter username']) ?>
                                     <?php echo $this->Form->input('password',['type'=>'password','class'=>'logininput','placeholder'=>'Enter password']) ?>
+                                    <?php echo $this->Form->checkbox('remember_me'); ?> Remember Me
                                     <?php echo $this->Form->button(__('Login'),['class'=>'btn btn-info buttonclass']) ?>
                               <?= $this->Form->end() ?>
                            </div>
