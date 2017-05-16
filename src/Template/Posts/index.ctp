@@ -11,6 +11,7 @@
     </ul>
     </nav>
     <div class="posts index large-9 medium-8 columns content">
+    <?= $this->Flash->render() ?>
     <h3><?= __('Posts') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -23,7 +24,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($post as $post): ?>
+            <?php foreach ($post as $post): 
+                    $userid = $this->request->session()->read('Auth.User.id');
+            ?>
             <tr>
                 <td><?= $this->Number->format($post->id) ?></td>
                 <td><?= h($post->title) ?></td>
@@ -32,7 +35,7 @@
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $post->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $post->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id)]) ?>
+                    <?php echo $this->Form->postLink(__('Delete'), ['action' => 'delete',$post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id)]); ?>
                     <?= $this->Html->link(__('Comment'), ['action' => 'comment', $post->id]) ?>
                 </td>
             </tr>

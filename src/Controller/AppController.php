@@ -37,6 +37,7 @@ class AppController extends Controller
      *
      * @return void
      */
+    //It can build  the layout of website frontend as well as backed.It can load components like auth,cookie,flash etc. They used in every controller of application.  
     public function initialize()
     {
         parent::initialize();
@@ -46,6 +47,7 @@ class AppController extends Controller
         $this->loadComponent('Cookie');
 
         if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
+            $this->viewBuilder()->layout('dashboardview');
             $this->loadComponent('Cookie');
             $this->loadComponent('Auth', [  
 
@@ -53,14 +55,12 @@ class AppController extends Controller
                 'controller' => 'Dashboards',
                 'action' => 'index',
                 'prefix' => 'admin',
-                // 'prefix' => false,
                 ],
 
                 'logoutRedirect' => [
                 'controller' => 'Users',
                 'action' => 'login',
                 'prefix' => 'admin',
-                    
                 ],
 
                 'authenticate' => [
@@ -69,12 +69,6 @@ class AppController extends Controller
                     ]
 
                 ],
-                // 'storage' => [
-                //     'className' => 'Session',
-                //     'key' => 'Auth.Admin',              
-                // ],
-                
-                // 'authorize' => 'Controller',
             ]);
         }
         else {
@@ -94,11 +88,6 @@ class AppController extends Controller
                     ]
 
                 ],
-                // 'storage' => [
-                //      'className' => 'Session',
-                //      'key' => 'Auth.User',              
-                //  ],
-                
             ]);
 
         }
@@ -107,8 +96,6 @@ class AppController extends Controller
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         $this->checkCookie();
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
     }
 
     /**
@@ -117,6 +104,7 @@ class AppController extends Controller
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return \Cake\Network\Response|null|void
      */
+    //Called after controller action logic, but before the view is rendered.
     public function beforeRender(Event $event)
     {
         if (!array_key_exists('_serialize', $this->viewVars) &&
@@ -126,6 +114,7 @@ class AppController extends Controller
         }
     }
 
+    //Called during the Controller.shutdown event which is triggered after every controller action, and after rendering is complete.
     public function beforeFilter(Event $event)
     {
         if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
@@ -137,34 +126,27 @@ class AppController extends Controller
         }
     }
 
+    //Used to read the cookie
     function checkCookie(){
 
         $session = $this->request->session()->read("Auth");
 
-        
         $this->loadModel('Users');
         if(empty($session))
-        {     //print_r("expression");exit;
+        {   
             if(isset($this->request->prefix) && ($this->request->prefix == 'admin')){
-                // $sessionadmin = $this->request->session()->read("Auth.Admin");
-                // if(empty($sessionadmin ))
-                // {    
+                  
                     $cookieId = $this->Cookie->read('UserBack.id');
-                    
                     $cookieUser = $this->Cookie->read('UserBack.name');
-
                     $cookiePass = $this->Cookie->read('UserBack.pass');
-                    // print_r($cookiePass);exit;
                     $cookie = ['username' => $cookieUser, 'password'=> $cookiePass]; 
-                    //print_r($cookieId);exit;
                     if (!is_null($cookie)) 
                     {
                         
                         $user1 = $this->Users->findByUsername($cookie['username'])->toArray();
-                        // print_r($user1);exit;
+                       
                         if (!empty($user1[0])) 
                         {
-                            // print_r($user1[0]);exit();
                             $this->Auth->setUser($user1[0]);
                             $this->redirect($this->Auth->redirectUrl());
                         }
@@ -174,24 +156,21 @@ class AppController extends Controller
                         }
                     }else {
 
-                             $this->redirect($this->Auth->redirectUrl());
+                            $this->redirect($this->Auth->redirectUrl());
                     }
-                // }
             }
             else{
                 $cookieId = $this->Cookie->read('UserFront.id');
-                // print_r($cookieId);exit;
                 $cookieUser = $this->Cookie->read('UserFront.name');
-
                 $cookiePass = $this->Cookie->read('UserFront.pass');
 
                 $cookie = ['username' => $cookieUser, 'password'=> $cookiePass]; 
-                // print_r($cookie);exit;
+                
                 if (!is_null($cookie)) 
                 {
                     
                     $user1 = $this->Users->findByUsername($cookie['username'])->toArray();
-                     // print_r($user1[0]);exit;
+                    
                     if (!empty($user1[0])) 
                     {
                         $this->Auth->setUser($user1[0]);
@@ -203,12 +182,9 @@ class AppController extends Controller
                     }
                 }else {
 
-                         $this->redirect($this->Auth->redirectUrl());
+                        $this->redirect($this->Auth->redirectUrl());
                 }
             }
-                
-            
         }
-        
     }
 }

@@ -16,6 +16,7 @@
     </ul>
 </nav>
 <div class="posts form large-9 medium-8 columns content">
+<?= $this->Flash->render() ?>
     <?= $this->Form->create($post) ?>
     <fieldset>
         <legend><?= __('Edit Post') ?></legend>

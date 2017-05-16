@@ -35,10 +35,9 @@ class CompaniesTable extends Table
         $this->setTable('companies');
         $this->setDisplayField('Company_id');
         $this->setPrimaryKey('Company_id');
-
+        
         $this->belongsTo('Companies', [
             'foreignKey' => 'Company_id',
-            // 'joinType' => 'LEFT'
         ]);
     }
 

@@ -13,7 +13,7 @@
     </ul>
 </nav>
 <div class="posts view large-9 medium-8 columns content">
-
+<?= $this->Flash->render() ?>
 
     <h3><?= h($post->title) ?></h3>
     <table class="vertical-table">
@@ -45,27 +45,39 @@
 <?php
     $userid = $this->request->session()->read('Auth.User.id');
     foreach ($result as $row) { 
+        $comment_id =$row->id;
     ?>
     <div class="commdiv">
         <div class="row">
-        <div class="col-md-10 heading1"><?php echo $row->user->username; ?></div>
-        <div class="col-md-2 pull-right">
-           <?php if($userid == $row->user_id){
-                   ?><?php echo $this->Form->postLink(__('Delete'), ['controller' => 'Comments','action' => 'delete',$row->id,$post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $row->id)]); ?>
-             <?php  }
-               else{ ?>
-                    <?php echo $this->Form->postLink(__('Delete'),['controller' => 'Posts','action' => 'comment',$post->id], ['error' => __('You are not authorised to delete')]); ?>
-             <?php   }
-           ?>
-             <div id='commeditid'>Edit</div>
+            <div class="col-md-8 heading1"><?php echo $row->user->username; ?></div>
+            <div class="col-md-4 pull-right">
+               <?php if($userid == $row->user_id){
+                       ?><?php echo $this->Form->postLink(__('Delete'), ['controller' => 'Comments','action' => 'delete',$row->id,$post->id],['type' => 'button','class' => 'button cancel'], ['confirm' => __('Are you sure you want to delete # {0}?', $row->id)]); ?>
+                 <?php  }
+                   else{ ?>
+                        <?php echo $this->Form->postLink(__('Delete'),['controller' => 'Posts','action' => 'comment',$post->id],['type' => 'button','class' => 'button cancel'], ['error' => __('You are not authorised to delete')]); ?>
+                 <?php   }
+               ?>
+                <?= $this->Form->button(__('Edit'),['id'=>'commeditid']) ?>
+            </div>
         </div>
-    </div>
-    <div class="date"><?php echo $row->created; ?></div>
-    <div class="comments"><?php echo $row->comment; ?></div>            
+        <div class="date"><?php echo $row->created; ?></div>
+        <div class="comments" id="comments"><?php echo $row->comment; ?></div>  
+        <div id="editform" class="commeditid">
+           <?php 
+                echo $this->Form->create(null, ['url' => ['controller' => 'Comments', 'action' => 'editcomment',$post->id,$row->id]]);
+                echo $this->Form->textarea('comment',['id'=>'inputid']);
+               
+                echo $this->Form->button(__('Submit'),['id'=>'submitedit','class'=>'floatright']);
+                echo " "." ";
+                echo $this->Form->end() ?>
+           <?=  $this->Html->link(__('Cancel'),['controller' => 'Posts','action' => 'comment',$post->id,$comment_id],['type' => 'button','class' => 'button cancel']);
+           ?> 
+        </div>  
     </div>
 <?php } unset($row);?>
     
-    <?php echo $this->Form->create(null, ['url' => ['controller' => 'Comments', 'action' => 'add',$post->id]]);?>
+    <?php echo $this->Form->create(null, ['url' => ['controller' => 'Comments', 'action' => 'add',$post->id]],['id'=>'commaddform']);?>
     <fieldset>
         <legend><?= __('Add Comment') ?></legend>
         <?php

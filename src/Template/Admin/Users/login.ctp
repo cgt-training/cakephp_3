@@ -1,6 +1,6 @@
 <div class="row adminbg">
       <div class="container">
-           <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div class="row margin0">
                       <div class="loginbody">
@@ -17,8 +17,8 @@
                            </div>
                       </div>
                 </div>
-           </div>
-           <div class="col-md-4"></div>
+            </div>
+            <div class="col-md-4"></div>
       </div>
-    </div>
+</div>
  

@@ -11,8 +11,6 @@ class FormsController extends AppController
     
     public function initialize(){
 	    parent::initialize();
-	    // Set the layout
-	    
 	}
 
 }

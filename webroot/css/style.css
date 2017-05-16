@@ -225,3 +225,11 @@
 	width: 100%;
 	margin-bottom: 20px;
 }
+.alert{
+	font-size: 13px !important;
+	margin-top: 10px;
+}
+.floatright{
+	margin-right: 68%;
+	float: right;
+}

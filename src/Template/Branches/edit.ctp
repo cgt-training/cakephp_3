@@ -20,6 +20,7 @@
     </ul>
 </nav>
 <div class="branches form large-9 medium-8 columns content">
+<?= $this->Flash->render() ?>
     <?= $this->Form->create($branch) ?>
     <fieldset>
         <legend><?= __('Edit Branch') ?></legend>

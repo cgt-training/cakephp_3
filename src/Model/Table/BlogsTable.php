@@ -31,11 +31,10 @@ class BlogsTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
+        
         $this->setTable('blogs');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
-
         $this->addBehavior('Timestamp');
     }
 

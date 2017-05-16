@@ -6,6 +6,7 @@ use Cake\Event\Event;
 
 class UsersController extends AppController
 {
+    //Called during the Controller.shutdown event which is triggered after every controller action, and after rendering is complete.
      public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -13,7 +14,7 @@ class UsersController extends AppController
     }
 
      public function index()
-     {
+    {
         $this->set('users', $this->Users->find('all'));
     }
 
@@ -23,6 +24,7 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
+    //The User can register through this function.
     public function add()
     {
         $user = $this->Users->newEntity();
@@ -38,22 +40,19 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 
-   
+   //Registered user can login to the application through this function
     public function login()
     {
         if (!empty($this->request->data) && $this->request->data['remember_me']) {
-         // print_r($this->request->getData());exit();
            
             if ($this->request->is('POST')) {
 
                 $user = $this->Auth->identify();
                 
                 $cookieId= $user['id'];
-
                 $cookieName= $user['username'];
-
                 $cookiePass= $user['password'];
-                 // print_r($cookiePass);exit;
+
                 $this->Cookie->configKey('UserFront', [
 
                     'expires' => '+1 days',
@@ -85,6 +84,7 @@ class UsersController extends AppController
         } 
     }
 
+    //The logged in  user can logout through this function
     public function logout()
     {
 

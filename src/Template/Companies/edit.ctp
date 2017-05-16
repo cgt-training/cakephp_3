@@ -18,6 +18,7 @@
     </ul>
 </nav>
 <div class="companies form large-9 medium-8 columns content">
+<?= $this->Flash->render() ?>
     <?= $this->Form->create($company) ?>
     <fieldset>
         <legend><?= __('Edit Company') ?></legend>

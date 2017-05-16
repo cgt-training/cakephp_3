@@ -60,6 +60,7 @@
                     <?php echo $this->Form->postLink(__('Delete'),['controller' => 'Posts','action' => 'comment',$post->id], ['error' => __('You are not authorised to delete')]); ?>
              <?php   }
            ?>
+           
              <!-- <a href="<?php // echo $this->Url->build([ 'controller' => 'Comments', 'action' => 'index','id'=>'commeditid',$row->id,$post->id]);?>">Edit</a> -->
              <div id='commeditid'>Edit</div>
         </div>

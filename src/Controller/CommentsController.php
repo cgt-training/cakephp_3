@@ -12,13 +12,14 @@ class CommentsController extends AppController
 {
     public function index()
     {
-        print_r("inside index"); exit;
+       
     }
 
     public function comment()
     {
         
     } 
+    
     public function add($id)
     {
         $comments= $this->loadModel('Comments');
@@ -37,7 +38,6 @@ class CommentsController extends AppController
             }
             $this->Flash->error(__('The post could not be saved. Please, try again.'));
         } 
-        
         $this->set(compact('comment'));
         $this->set('_serialize', ['comment']);
 
@@ -64,20 +64,19 @@ class CommentsController extends AppController
             // }
     }
 
-    public function edit($id,$u_id)
+    public function editcomment($id ,$comment_id)
     {
-        $comment = $this->Comments->get($id, [
+        $comment = $this->Comments->get($comment_id, [
             'contain' => []
         ]);
+       
         if ($this->request->is(['patch', 'post', 'put'])) {
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
-                $this->Flash->success(__('The post has been saved.'));
-                $this->autoRender = false;
+                $this->Flash->success(__('The Comment has been saved.'));
             }
-            $this->Flash->error(__('The post could not be saved. Please, try again.'));
         }
-        $this->set(compact('comment'));
-        $this->set('_serialize', ['comment']);
+         return $this->redirect(['controller' => 'Posts','action' => 'comment',$id]);
     }
+    
 }
