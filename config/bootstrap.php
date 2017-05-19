@@ -154,7 +154,6 @@ Email::setConfigTransport(Configure::consume('EmailTransport'));
 Email::setConfig(Configure::consume('Email'));
 Log::setConfig(Configure::consume('Log'));
 Security::salt(Configure::consume('Security.salt'));
-
 /*
  * The default crypto extension in 3.0 is OpenSSL.
  * If you are migrating from 2.x uncomment this code to
@@ -219,4 +218,5 @@ Type::build('timestamp')
  */
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
+    Plugin::load('Readysocial');
 }

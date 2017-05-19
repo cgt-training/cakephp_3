@@ -49,8 +49,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-
+    $routes->connect('/', ['controller' => 'Forms', 'action' => 'index']);
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
@@ -74,9 +73,17 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->fallbacks(DashedRoute::class);
 });
+Router::prefix('Admin', function ($routes) {
+    // Because you are in the admin scope,
+    // you do not need to include the /admin prefix
+    // or the admin route element.
+     $routes->connect('/', ['controller' => 'Users', 'action' => 'login']);
+     $routes->connect('/Dashboards/:action', ['controller' => 'Dashboards','action'=>'index']);
 
+     $routes->fallbacks(InflectedRoute::class);
+});
 /**
- * Load all plugin routes. See the Plugin documentation on
+ * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();

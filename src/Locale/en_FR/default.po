@@ -1,0 +1,72 @@
+msgid "product"
+msgstr "produit"
+msgid "Actions"
+msgstr "Actes"
+msgid "List Products"
+msgstr "Liste des produits"
+msgid "Add Product"
+msgstr "Ajouter un produit"
+msgid "Edit Product"
+msgstr "Modifier le produit"
+msgid "New Product"
+msgstr "Nouveau produit"
+msgid "name"
+msgstr "Prénom"
+msgid "Name"
+msgstr "Prénom"
+msgid "images"
+msgstr "Images"
+msgid "created"
+msgstr "Créé"
+msgid "Created"
+msgstr "Créé"
+msgid "modified"
+msgstr "Modifié"
+msgid "Modified"
+msgstr "Modifié"
+msgid "Products"
+msgstr "Des produits"
+msgid "View"
+msgstr "Vue"
+msgid "Edit"
+msgstr "modifier"
+msgid "Delete"
+msgstr "Effacer"
+
+msgid "Delete Product"
+msgstr "Supprimer le produit"
+msgid "Product Image"
+msgstr "Image du produit"
+
+msgid "Description"
+msgstr "La description"
+msgid "Documentation / API"
+msgstr "Documentation / API"
+msgid "Blog"
+msgstr "blog"
+msgid "Product"
+msgstr "Produit"
+msgid "Article"
+msgstr "Article"
+msgid "Login"
+msgstr "s'identifier"
+msgid "Logout"
+msgstr "Connectez - Ou"
+msgid "Theme Change"
+msgstr "Réglage"
+msgid "Sign up"
+msgstr "S'inscrire"
+msgid "Welcome"
+msgstr "Bienvenue"
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,6 @@ a:hover {
 a {
     color: #1798A5;
 }
-
 .side-nav li a:not(.button) {
     color: #15848F;
 }
@@ -111,7 +110,7 @@ ul.pagination .disabled:hover a {
 }
 
 .paginator p {
-    text-align: right;
+    /*text-align: right;*/
     color: rgba(0, 0 ,0 , 0.54);
 }
 
