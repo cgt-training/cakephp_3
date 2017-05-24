@@ -3,7 +3,8 @@
   * @var \App\View\AppView $this
   */
 ?>
-
+<?php $this->Paginator->options(['update' => '#content',
+    'evalScripts' => true]); ?>
     <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -13,6 +14,7 @@
     <div class="posts index large-9 medium-8 columns content">
     <?= $this->Flash->render() ?>
     <h3><?= __('Posts') ?></h3>
+     <div id="wrapper">
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -42,6 +44,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -53,3 +56,4 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+

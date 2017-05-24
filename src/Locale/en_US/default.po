@@ -21,10 +21,11 @@ msgid "Modified"
 msgstr "Updated"
 msgid "Blog"
 msgstr "Blogs"
-msgid ""
-msgstr ""
-msgid ""
-msgstr ""
-
+msgid "Post"
+msgstr "Posts"
+msgid "Company"
+msgstr "Companies"
+msgid "Branch"
+msgstr "Branches"
 
 

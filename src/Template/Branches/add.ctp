@@ -18,7 +18,7 @@
     <?= $this->Form->create($branch) ?>
     <fieldset>
         <legend><?= __('Add Branch') ?></legend>
-        <?php
+        <?php //print_r($companies);exit;
             echo $this->Form->control('company_fk_id', ['options' => $companies]);
             echo $this->Form->control('branch_name');
             echo $this->Form->control('branch_created');

@@ -107,14 +107,18 @@ class AppController extends Controller
     //Called after controller action logic, but before the view is rendered.
     public function beforeRender(Event $event)
     {   
-        I18n::locale('en_HI');
+        $loginid = $this->request->session()->read('Auth.User.id');
         $themes = TableRegistry::get('Settings');
-        $query = $themes->find()->toarray();
+        $query = $themes->find()
+                ->where(['user_id' =>$loginid])
+                ->order(['id' => 'DESC'])
+                ->toarray();
+        // print_r( $query);exit;
         if(!empty($query)){
             $name     = $query[0]['name'];
             $language = $query[0]['language'];
            
-            if(!empty($language)){
+            if(!empty($language) && !empty($loginid)){
                 I18n::locale($language);    
             }else{
                 I18n::locale('en_US');

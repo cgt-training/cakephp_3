@@ -10,7 +10,7 @@ use App\Controller\AppController;
  */
 class PostsController extends AppController
 {
-    public $components = ['Paginator'];
+    public $components = ['Paginator','RequestHandler'];
 
     public $paginate = [
         'limit' => 10,
@@ -26,11 +26,7 @@ class PostsController extends AppController
     //The default page of post load by this function
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
         $posts = $this->paginate($this->Posts);
-
         $this->set(compact('posts'));
         $this->set('_serialize', ['posts']);
     }

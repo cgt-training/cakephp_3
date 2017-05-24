@@ -9,13 +9,20 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user"></i>
-                                   <?php echo $this->request->session()->read('Auth.User.username'); ?> <i class="caret"></i>
-
-                                </a>
+                            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> 
+                                <?php if(!empty($this->request->session()->read('Auth.User.user_image'))){ 
+                                    echo $this->Html->image('user_img/'.$this->request->session()->read('Auth.User.user_image'),['class' => 'img-responsive img-circle user-image navitem_img','alt'=>'myimage']);
+                                     }else{ ?>
+                                    <i class="fa fa-user"></i>
+                               |<?php }
+                                    echo " ".$this->request->session()->read('Auth.User.username');
+                               ?>
+                               <i class="caret" style="margin-top: 17px;"></i>
+                            </a>
+                                
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a tabindex="-1" href="#">Profile</a>
+                                        <?php  echo $this->Html->link(__('Profile'),['controller' => 'Dashboards','action' =>'profile']); ?>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
@@ -26,7 +33,7 @@
                         </ul>
                         <ul class="nav">
                             <li class="active">
-                                <a href="#">Dashboard</a>
+                               <?php  echo $this->Html->link(__('Dashboard'),['controller' => 'Dashboards','action' =>'index']); ?>
                             </li>
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b>
@@ -34,72 +41,7 @@
                                 </a>
                                 <ul class="dropdown-menu" id="menu1">
                                     <li>
-                                        <a href="#">Tools <i class="icon-arrow-right"></i>
-
-                                        </a>
-                                        <ul class="dropdown-menu sub-menu">
-                                            <li>
-                                                <a href="#">Reports</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Logs</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Errors</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">SEO Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Other Link</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">Other Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Other Link</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <i class="caret"></i>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a tabindex="-1" href="#">Blog</a>
-                                    </li>
-                                    <li>
-                                        <a tabindex="-1" href="#">News</a>
-                                    </li>
-                                    <li>
-                                        <a tabindex="-1" href="#">Custom Pages</a>
-                                    </li>
-                                    <li>
-                                        <a tabindex="-1" href="#">Calendar</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a tabindex="-1" href="#">FAQ</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a tabindex="-1" href="#">User List</a>
-                                    </li>
-                                    <li>
-                                        <a tabindex="-1" href="#">Search</a>
-                                    </li>
-                                    <li>
-                                        <a tabindex="-1" href="#">Permissions</a>
+                                        <?php  echo $this->Html->link(__('Change language'),['controller' => 'Settings','action' =>'index']); ?>
                                     </li>
                                 </ul>
                             </li>

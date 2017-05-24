@@ -12,5 +12,8 @@
                         <li>
                             <?php  echo $this->Html->link(__('Posts'),['controller' => 'Posts','action' =>'index']); ?>
                         </li>
+                        <li>
+                            <?php  echo $this->Html->link(__('Users'),['controller' => 'Users','action' =>'index']); ?>
+                        </li>
                     </ul>
                 </div>

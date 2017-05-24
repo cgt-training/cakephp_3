@@ -52,7 +52,7 @@
             <div class="col-md-7 heading1"><?php echo $row->user->username; ?></div>
             <div class="col-md-5">
                 <?php echo $this->Form->postLink(__('Delete'), ['controller' => 'Comments','action' => 'delete',$row->id,$post->id],['type' => 'button','class' => 'button cancel'], ['confirm' => __('Are you sure you want to delete # {0}?', $row->id)]); ?>
-                <?= $this->Form->button(__('Edit'),['id'=>'commeditid']) ?>
+                <?= $this->Form->button(__('Edit'),['id'=>'commeditid','class'=>'edit_btn']) ?>
             </div>
         </div>
         <div class="date"><?php echo $row->created; ?></div>
@@ -64,8 +64,8 @@
                
                 echo $this->Form->button(__('Submit'),['id'=>'submitedit','class'=>'floatright']);
                 echo " "." ";
+                 ?><div class="button cancel cancelid" id="cancelid">Cancel</div><?php
                 echo $this->Form->end() ?>
-           <?=  $this->Html->link(__('Cancel'),['controller' => 'Posts','action' => 'comment',$post->id,$comment_id],['type' => 'button','class' => 'button cancel']);
            ?> 
         </div>  
     </div>

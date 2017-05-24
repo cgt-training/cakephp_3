@@ -16,19 +16,25 @@ class SettingsController extends AppController
 
     public function index()
     {
-        $settings = $this->Settings->get('8');
-        if ($this->request->is(['post','put'])) {
-            $settings = $this->Settings->patchEntity($settings, $this->request->data);
-            $settings->modified = date("Y-m-d H:i:s");
-            if ($this->Settings->save($settings)) {
-                $this->Flash->success(__('Your Theme has been Changed.'));
-                return $this->redirect(['controller' => 'Posts','action' => 'index']);
-            }
-            $this->Flash->error(__('Unable to update your post.'));
-        }
-        $this->set('post', $settings);  
-    }
 
+        $loginid = $this->request->session()->read('Auth.User.id');//print_r($loginuser);
+        if(!empty($loginid)){
+            $settings = $this->Settings->newEntity();
+            if ($this->request->is(['post','put'])) {
+                $settings = $this->Settings->patchEntity($settings, $this->request->data);
+                $settings->modified = date("Y-m-d H:i:s");
+                $settings->user_id = $loginid;
+                if ($this->Settings->save($settings)) {
+                    $this->Flash->success(__('Your Theme has been Changed.'));
+                    return $this->redirect(['controller' => 'Settings','action' => 'index']);
+                }
+                $this->Flash->error(__('Unable to update theme.'));
+            }
+            $this->set('post', $settings); 
+        }else{
+            return $this->redirect(['controller' => 'Users','action' => 'login']);
+        }
+    }
 }
 
 

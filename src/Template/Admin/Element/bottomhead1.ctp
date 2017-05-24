@@ -4,4 +4,5 @@
     echo $this->Html->script('modernizr-2.6.2-respond-1.1.0.min');
     echo $this->Html->script('jquery.easy-pie-chart');
     echo $this->Html->script('scripts');
+    echo $this->Html->script('ajaxpagination');
 ?>

@@ -10,7 +10,7 @@ use App\Controller\AppController;
  */
 class CompaniesController extends AppController
 {
-    public $components = ['Paginator'];
+    public $components = ['Paginator','RequestHandler'];
 
     public $paginate = [
         'limit' => 10,

@@ -10,6 +10,7 @@
     </ul>
 </nav>
 <div class="companies index large-9 medium-8 columns content">
+ <?= $this->Flash->render() ?>
     <h3><?= __('Companies') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

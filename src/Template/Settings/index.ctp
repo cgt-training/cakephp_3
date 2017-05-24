@@ -1,5 +1,6 @@
 <h1>Themes Options</h1>
-<?php //print_r($post);
+<?= $this->Flash->render() ?>
+<?php
     echo $this->Form->create($post,['id' => 'submittheme']);
 ?>
     <div class="col-lg-12 select_button">

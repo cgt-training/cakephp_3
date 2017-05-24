@@ -10,8 +10,6 @@
         <li><?= $this->Form->postLink(__('Delete Company'), ['action' => 'delete', $company->Company_id], ['confirm' => __('Are you sure you want to delete # {0}?', $company->Company_id)]) ?> </li>
         <li><?= $this->Html->link(__('List Companies'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Company'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Companies'), ['controller' => 'Companies', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Company'), ['controller' => 'Companies', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="companies view large-9 medium-8 columns content">

@@ -32,7 +32,6 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) { 
             if(!empty($this->request->data['user_image']['name'])){ 
-                    //$this->P($this->request->data['product_image']);
                 $fileName = $this->request->data['user_image']['name'];
                 $ext = explode(".", $fileName);
                 $extension = end($ext);
@@ -40,7 +39,7 @@ class UsersController extends AppController
                 $newfilename = $uniquesavename .".".$extension;
                 $uploadPath = 'img/user_img/';
                 $uploadFile = $uploadPath.$newfilename;
-                $move = move_uploaded_file($this->request->data['user_image']['tmp_name'],$uploadFile);       //print_r($uploadFile);exit;
+                $move = move_uploaded_file($this->request->data['user_image']['tmp_name'],$uploadFile);
                 if($move){
                     $user = $this->Users->patchEntity($user, $this->request->getData());
                     $user->user_image = $newfilename;
@@ -76,12 +75,10 @@ class UsersController extends AppController
                 $cookiePass= $user['password'];
 
                 $this->Cookie->configKey('UserFront', [
-
                     'expires' => '+1 days',
                     'httpOnly' => true
 
                 ]);
-
                 $this->Cookie->write('UserFront',
                     ['id'=>$cookieId, 'name' => $cookieName, 'pass' => $cookiePass]
                 );
@@ -93,7 +90,6 @@ class UsersController extends AppController
             }
 
         }else if(!empty($this->request->data) && $this->request->data['remember_me'] == 0) {
-
                if ($this->request->is('post')) {
                     $user = $this->Auth->identify();
                     if ($user) {

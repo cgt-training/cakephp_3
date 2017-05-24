@@ -28,7 +28,7 @@
             <td><?= h($post->created) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Modified') ?></th>
+            <th scope="row"><?= __('Updated') ?></th>
             <td><?= h($post->updated) ?></td>
         </tr>
     </table>

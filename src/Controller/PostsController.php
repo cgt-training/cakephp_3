@@ -10,7 +10,7 @@ use Cake\ORM\TableRegistry;
  */
 class PostsController extends AppController
 {   
-    public $components = ['Paginator'];
+    public $components = ['Paginator','RequestHandler'];
 
     public $paginate = [
         'limit' => 10,
@@ -25,7 +25,13 @@ class PostsController extends AppController
      */
     //The default page of post load by this function.
     public function index()
-    {
+    {   
+       //  if($this->request->is('ajax'))
+       //  {
+       //      $this->viewBuilder()->layout('ajax');
+       //  }else{
+       // $this->viewBuilder()->layout('frontend');
+       //  }
         $post = $this->paginate($this->Posts);
         $this->set(compact('post'));
         $this->set('_serialize', ['post']);

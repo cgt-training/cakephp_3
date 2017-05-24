@@ -11,7 +11,6 @@
         <?php
             echo $this->Form->control('title');
             echo $this->Form->control('description');
-            echo $this->Form->control('user_id', ['options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'),['class' => 'margin68']) ?>

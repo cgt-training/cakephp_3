@@ -11,7 +11,7 @@ $(document).ready(function(){
             $(this).parent().parent().parent().children('.comments').show();
             $(this).parent().parent().parent().children('.commeditid').hide();
         });
-        $('#cancelid').click(function(){
+        $('.cancelid').click(function(){
             $(this).parent().parent().parent().children('.comments').show();
             $(this).parent().parent().parent().children('.commeditid').hide();
         });

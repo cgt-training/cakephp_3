@@ -11,7 +11,9 @@
         <li><?= $this->Html->link(__('New Company'), ['controller' => 'Companies', 'action' => 'add']) ?></li>
     </ul>
 </nav>
+
 <div class="branches index large-9 medium-8 columns content">
+ <?= $this->Flash->render() ?>
     <h3><?= __('Branches') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -25,9 +27,9 @@
         </thead>
         <tbody>
             <?php foreach ($branches as $branch): ?>
-            <tr>
+            <tr> 
                 <td><?= $branch->has('branch') ? $this->Html->link($branch->branch->branch_id, ['controller' => 'Branches', 'action' => 'view', $branch->branch->branch_id]) : '' ?></td>
-                <td><?= $branch->has('company') ? $this->Html->link($branch->company->Company_id, ['controller' => 'Companies', 'action' => 'view', $branch->company->Company_id]) : '' ?></td>
+                <td><?= $branch->has('company') ? $this->Html->link($branch->company->Company_name, ['controller' => 'Companies', 'action' => 'view', $branch->company->Company_id]) : '' ?></td>
                 <td><?= h($branch->branch_name) ?></td>
                 <td><?= h($branch->branch_created) ?></td>
                 <td class="actions">

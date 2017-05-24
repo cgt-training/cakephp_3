@@ -25,7 +25,7 @@
     <fieldset>
         <legend><?= __('Edit Branch') ?></legend>
         <?php
-            echo $this->Form->control('company_fk_id', ['options' => $companies]);
+            echo $this->Form->control('company_fk', ['options' => $companies]);
             echo $this->Form->control('branch_name');
             echo $this->Form->control('branch_created');
         ?>

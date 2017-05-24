@@ -64,17 +64,23 @@ class CommentsController extends AppController
 
     public function editcomment($id ,$comment_id)
     {
+        $authuser_id = $this->request->session()->read('Auth.User.id');
         $comment = $this->Comments->get($comment_id, [
             'contain' => []
         ]);
-       
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $comment = $this->Comments->patchEntity($comment, $this->request->getData());
-            if ($this->Comments->save($comment)) {
-                $this->Flash->success(__('The Comment has been saved.'));
+        if($authuser_id == $comment->user_id){
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $comment = $this->Comments->patchEntity($comment, $this->request->getData());
+                if ($this->Comments->save($comment)) {
+                    $this->Flash->success(__('The Comment has been saved.'));
+                }
             }
+            return $this->redirect(['controller' => 'Posts','action' => 'comment',$id]);
+        }else{
+            $this->Flash->error(__('You are not authorised to edit'));
+             return $this->redirect(['controller' => 'Posts','action' => 'comment',$id]);
         }
-        return $this->redirect(['controller' => 'Posts','action' => 'comment',$id]);
+        
     }
     
 }

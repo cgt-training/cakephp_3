@@ -15,15 +15,22 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div class="nav navbar-nav navbar-right navbar-right-top-margin">
             <ul class="nav navbar-nav navbar-left">
-              <li><?php echo $this->Html->link(
-                  'Posts',
-                  array(
-                      'controller' => 'Posts',
-                      'action' => 'index',
-                      'full_base' => true
-                  )
-              ); ?></li>
-               <li>
+              <li class="navitem">
+                  <?php
+                        echo $this->Html->link(__('Post'),['controller' => 'Posts','action' =>'index']);
+                  ?>
+              </li>
+              <li class="navitem">
+                  <?php
+                        echo $this->Html->link(__('Company'),['controller' => 'Companies','action' =>'index']);
+                  ?>
+              </li>
+              <li class="navitem">
+                  <?php
+                        echo $this->Html->link(__('Branch'),['controller' => 'Branches','action' =>'index']);
+                  ?>
+              </li>
+              <li>
                   <?php
                         echo $this->Html->link(__('Blog'),['controller' => 'Blogs','action' =>'index']);
                   ?>
@@ -47,6 +54,9 @@
                         echo 'Welcome '.$this->request->session()->read('Auth.User.username');
                      ?>   
                     </li>
+                    <li /*class="navitem_img"*/ ><?php if(!empty($this->request->session()->read('Auth.User.user_image'))){
+                        echo $this->Html->image('user_img/'.$this->request->session()->read('Auth.User.user_image'),['class' => 'img-responsive img-circle user-image navitem_img']);}?>
+                    </li>  
               <?php 
                 }else{ 
               ?>

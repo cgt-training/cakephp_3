@@ -10,7 +10,7 @@ use App\Controller\AppController;
  */
 class BranchesController extends AppController
 {
-    public $components = ['Paginator'];
+    public $components = ['Paginator','RequestHandler'];
 
     public $paginate = [
         'limit' => 10,
@@ -70,6 +70,7 @@ class BranchesController extends AppController
         }
         $branches = $this->Branches->Branches->find('list', ['limit' => 200]);
         $companies = $this->Branches->Companies->find('list', ['limit' => 200]);
+        //print_r($companies);exit;
         $this->set(compact('branch', 'branches', 'companies'));
         $this->set('_serialize', ['branch']);
     }
